@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cattie</title>
+
+    <link href="{{.BasePath}}/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{.BasePath}}/static/css/common.css" rel="stylesheet">
+    <link href="{{.BasePath}}/static/css/pnotify.core.css" rel="stylesheet"/>
+    <style type="text/css">
+        .ui-pnotify.error .ui-pnotify-container {
+            background-color: #404040 !important;
+            background-image: none !important;
+            border: none !important;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        .ui-pnotify.error .ui-pnotify-title, .ui-pnotify.error .ui-pnotify-text {
+            font-family: Arial, Helvetica, sans-serif !important;
+            text-shadow: 2px 2px 3px black !important;
+            font-size: 10pt !important;
+            color: #FFF !important;
+            padding-left: 50px !important;
+            line-height: 1 !important;
+            text-rendering: geometricPrecision !important;
+        }
+
+        .ui-pnotify.error .ui-pnotify-title {
+            font-weight: bold;
+        }
+
+        .ui-pnotify.error .ui-pnotify-icon {
+            float: left;
+        }
+
+        .ui-pnotify.error .picon {
+            margin: 3px;
+            width: 33px;
+            height: 33px;
+        }
+    </style>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="{{.BasePath}}/static/js/jquery/jquery-2.1.1.min.js"></script>
+    <script src="{{.BasePath}}/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{.BasePath}}/static/js/pnotify.core.js"></script>
+    <script src="{{.BasePath}}/static/js/custom_notify.js"></script>
+    <script src="{{.BasePath}}/static/js/common_need.js"></script>
+    <script src="{{.BasePath}}/static/js/common.utils.js"></script>
+    <script src="{{.BasePath}}/static/bootstrap/js/vendor/holder.js"></script>
+    <script src="{{.BasePath}}/static/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+
+    <script type="text/javascript">
+        var BASE_PATH = '{{.BasePath}}';
+    </script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{.BasePath}}/">数据服务</a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="" id="head_menu_index_1"><a class="" data-toggle="" href="{{.BasePath}}/datasource"
+                                                       role="button"
+                                                       aria-expanded="false">数据源</a>
+                </li>
+                <li class="" id="head_menu_index_2"><a class="" data-toggle="" href="{{.BasePath}}/dataservice"
+                                                       role="button"
+                                                       aria-expanded="false">数据服务</a>
+                </li>
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="" id=""><a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                                      aria-expanded="false">${userInfo.name } <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void(0);">${userInfo.role }</a></li>
+                        <li><a href="javascript:void(0);">${userInfo.ip }</a></li>
+                        <li><a href="{{.BasePath}}/static/logout.do">退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 main">
+            {{.LayoutContent}}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

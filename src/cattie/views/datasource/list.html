@@ -1,0 +1,153 @@
+<input id="head_menu_index_input" type="hidden" value="1">
+
+<div class="row">
+    <div class="col-sm-12">
+        <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#addModal">新增</button>
+    </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增数据源</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addForm" action="{{.BasePath}}/datasource/add" method="post">
+                    <div class="form-group">
+                        <label for="nameInput">名称</label>
+                        <input type="email" class="form-control" name="name" id="nameInput" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label>数据库类型</label>
+                        <select class="form-control" name="type">
+                            <option>PostgreSQL</option>
+                            <option>MySQL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlInput">URL</label>
+                        <input type="text" class="form-control" name="url" id="urlInput" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="urlInput">MAX</label>
+                        <input type="text" class="form-control" name="max" id="maxInput" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="urlInput">MIN</label>
+                        <input type="text" class="form-control" name="min" id="minInput" placeholder="">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="submitAddBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<HR/>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>名称</th>
+        <th>类型</th>
+        <th>URL</th>
+        <th>最大连接</th>
+        <th>最小连接</th>
+        <th>创建日期</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{range $k, $v := .list}}
+    <tr>
+        <th scope="row">{{$v.id}}</th>
+        <td>{{$v.name}}</td>
+        <td>{{$v.type}}</td>
+        <td>{{$v.url}}</td>
+        <td>{{$v.max}}</td>
+        <td>{{$v.min}}</td>
+        <td>{{$v.create_time}}</td>
+        <td><button type="button" class="btn btn-default btn-xs" data="{{$v.id}}" data-toggle="modal" data-target="#editModal">修改</button></td>
+    </tr>
+    {{end}}
+    <!--<tr>-->
+        <!--<th scope="row">3</th>-->
+        <!--<td>Larry</td>-->
+        <!--<td>Jacob</td>-->
+        <!--<td>the Bird</td>-->
+        <!--<td><button type="button" class="btn btn-default btn-xs" data="1" data-toggle="modal" data-target="#editModal">修改</button></td>-->
+    <!--</tr>-->
+    </tbody>
+</table>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">修改数据源</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" action="{{.BasePath}}/datasource/edit" method="post">
+                    <input type="hidden" name="id" id="idEdit">
+                    <div class="form-group">
+                        <label for="nameInput">名称</label>
+                        <input type="email" class="form-control" name="name" id="nameInputEdit" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label>数据库类型</label>
+                        <select class="form-control" name="type" id="typeEdit">
+                            <option>PostgreSQL</option>
+                            <option>MySQL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlInput">URL</label>
+                        <input type="text" class="form-control" name="url" id="urlInputEdit" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="urlInput">MAX</label>
+                        <input type="text" class="form-control" name="max" id="maxInputEdit" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="urlInput">MIN</label>
+                        <input type="text" class="form-control" name="min" id="minInputEdit" placeholder="">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="submitEditBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#editModal').on('show.bs.modal', function (e) {
+            $.getJSON(BASE_PATH + "/datasource/get",{id: $(e.relatedTarget).attr('data')},function(res){
+                $("#idEdit").val(res.id);
+                $("#nameInputEdit").val(res.name);
+                $("#typeEdit").val(res.type);
+                $("#maxInputEdit").val(res.max);
+                $("#minInputEdit").val(res.min);
+                $("#urlInputEdit").val(res.url);
+            });
+        });
+
+        $("#submitEditBtn").click(function(){
+            $("#editForm").submit();
+        });
+
+        $("#submitAddBtn").click(function(){
+            $("#addForm").submit();
+        });
+    });
+</script>
